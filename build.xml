@@ -1,0 +1,35 @@
+<project default="run">
+
+    <property name="src.dir" value="src"/>
+    <property name="bin.dir" value="bin"/>
+    <property name="lib.dir" value="lib"/>
+
+    <property name="products" value="products.txt"/>
+    <property name="listings" value="listings.txt"/>
+    <property name="results" value="results.txt"/>
+
+    <target name="compile">
+        <mkdir dir="${bin.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${bin.dir}">
+            <classpath>
+                <pathelement path="${lib.dir}/gson-2.3.1.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="com.frogstackventures.codingchallenge.Driver" fork="true" failonerror="yes">
+            <classpath>
+                <pathelement path="${bin.dir}"/>
+                <pathelement path="${lib.dir}/gson-2.3.1.jar"/>
+            </classpath>
+            <arg value="${products}" />
+            <arg value="${listings}" />
+            <arg value="${results}" />
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${bin.dir}" />
+    </target>    
+</project>
